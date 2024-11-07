@@ -10,6 +10,7 @@
 #define PORT2 2202 // Port for client 2
 #define BUFFER_SIZE 1024
 
+int opt = 1;
 
 //I encoded the letter of the direction they go. So r moves right and in the matrix i+1; 
     
@@ -164,6 +165,28 @@ int main(){
         close(listen_fd1); // Close other socket on failure
         exit(EXIT_FAILURE);
     }
+
+    if (setsockopt(listen_fd1, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)))
+    {
+        perror("setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt))");
+        exit(EXIT_FAILURE);
+    }
+    if (setsockopt(listen_fd1, SOL_SOCKET, SO_REUSEPORT, &opt, sizeof(opt)))
+    {
+        perror("setsockopt(server_fd, SOL_SOCKET, SO_REUSEPORT, &opt, sizeof(opt))");
+        exit(EXIT_FAILURE);
+    }
+    if (setsockopt(listen_fd2, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)))
+    {
+        perror("setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt))");
+        exit(EXIT_FAILURE);
+    }
+    if (setsockopt(listen_fd2, SOL_SOCKET, SO_REUSEPORT, &opt, sizeof(opt)))
+    {
+        perror("setsockopt(server_fd, SOL_SOCKET, SO_REUSEPORT, &opt, sizeof(opt))");
+        exit(EXIT_FAILURE);
+    }
+
 
     address1.sin_family = AF_INET;
     address1.sin_addr.s_addr = INADDR_ANY;
