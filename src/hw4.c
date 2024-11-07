@@ -6,7 +6,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 
-#define PORT 2201
+#define PORT1 2201
 #define PORT2 2202 // Port for client 2
 #define BUFFER_SIZE 1024
 
@@ -167,7 +167,7 @@ int main(){
 
     address1.sin_family = AF_INET;
     address1.sin_addr.s_addr = INADDR_ANY;
-    address1.sin_port = htons(PORT);
+    address1.sin_port = htons(PORT1);
 
     address2.sin_family = AF_INET;
     address2.sin_addr.s_addr = INADDR_ANY;
@@ -199,7 +199,7 @@ int main(){
         exit(EXIT_FAILURE);
     }
 
-    printf("[Server] Running on ports %d and %d\n", PORT, PORT2);
+    printf("[Server] Running on ports %d and %d\n", PORT1, PORT2);
 
     // Accept clients
     if ((conn_fd1 = accept(listen_fd1, (struct sockaddr *)&address1, (socklen_t *)&addrlen1)) < 0){
