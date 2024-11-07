@@ -187,7 +187,13 @@ int main(){
     }
 
     // Start listening on both sockets
-    if (listen(listen_fd1, 3) < 0 || listen(listen_fd2, 3) < 0){
+    if (listen(listen_fd1, 3) < 0){
+        perror("[Server] listen() failed.");
+        close(listen_fd1); close(listen_fd2);
+        exit(EXIT_FAILURE);
+    }
+
+    if (listen(listen_fd2, 3) < 0){
         perror("[Server] listen() failed.");
         close(listen_fd1); close(listen_fd2);
         exit(EXIT_FAILURE);
